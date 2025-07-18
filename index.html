@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trance-Schnellwahl-App</title>
+  <style>
+    body { font-family: sans-serif; line-height: 1.6; padding: 1em; }
+    h1, h2, h3 { margin-top: 1.2em; }
+    details { margin: 0.5em 0; }
+    summary { font-weight: bold; cursor: pointer; background: #f0f0f0; padding: 0.3em; border-radius: 5px; }
+    .modul { border: 1px solid #ccc; padding: 1em; margin-bottom: 1em; border-radius: 8px; }
+    .filters { margin: 1em 0; padding: 1em; border: 1px dashed #aaa; border-radius: 8px; background: #fcfcfc; }
+    label { margin-right: 1em; display: inline-block; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <h1>Trance-Schnellwahl-App</h1>
+  <div class="filters">
+    <h2>Filter auswählen</h2>
+    <label><input type="checkbox" value="P" class="filter-checkbox"> Perfektionismus (P)</label>
+    <label><input type="checkbox" value="K" class="filter-checkbox"> Kontrollzwang (K)</label>
+    <label><input type="checkbox" value="Ä" class="filter-checkbox"> Ängstlichkeit (Ä)</label>
+    <label><input type="checkbox" value="T" class="filter-checkbox"> Trauma (T)</label>
+    <label><input type="checkbox" value="M" class="filter-checkbox"> Mangelfokus (M)</label>
+    <label><input type="checkbox" value="U" class="filter-checkbox"> Unruhe (U)</label>
+    <label><input type="checkbox" value="B" class="filter-checkbox"> Beziehung (B)</label>
+    <label><input type="checkbox" value="S" class="filter-checkbox"> Somatisierung (S)</label>
+    <label><input type="checkbox" value="Z" class="filter-checkbox"> Zwang (Z)</label>
+    <label><input type="checkbox" value="A" class="filter-checkbox"> Aphantasie (A)</label>
+    <label><input type="checkbox" value="R" class="filter-checkbox"> Religiosität (R)</label>
+    <label><input type="checkbox" value="E" class="filter-checkbox"> Erschöpfung (E)</label>
+    <br><br>
+    <button onclick="applyFilters()">Filter anwenden</button>
+    <button onclick="resetFilters()">Zurücksetzen</button>
+  </div>
+  <div id="moduleContainer">
+<!-- Hier würden die vollständigen Module 1 bis 12 integriert -->
+  </div>
+  <script>
+    function applyFilters() {
+      const checkboxes = document.querySelectorAll('.filter-checkbox');
+      const activeTags = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+      const modules = document.querySelectorAll('.modul');
+      modules.forEach(mod => {
+        const tags = mod.getAttribute('data-tags').split(" ");
+        const visible = activeTags.every(tag => tags.includes(tag));
+        mod.classList.toggle("hidden", !visible);
+      });
+    }
+
+    function resetFilters() {
+      document.querySelectorAll('.filter-checkbox').forEach(cb => cb.checked = false);
+      document.querySelectorAll('.modul').forEach(mod => mod.classList.remove("hidden"));
+    }
+  </script>
+</body>
+</html>
